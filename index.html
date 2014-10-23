@@ -1,70 +1,98 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>AngularJS Tutorials</title>
-    <link rel="stylesheet" href="foundation.css">
+    <title>Tank Tracker</title>
+    <link rel="stylesheet" href="css/foundation.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="d3/d3.v3.min.js"></script>
+    <script type="text/javascript" src="js/line-chart.min.js"></script>
+    <script type="text/javascript" src="js/pie-chart.min.js"></script>
+    <!--<script type="text/javascript" src="js/pie_main.js"></script>-->
+
+
 </head>
 <body>
 
 <div ng-app="myApp">
     <div ng-controller="AppCtrl as ctrl">
 
-        <!--<table>
-            <tr>
-                <td><h5>A: {{aGallons}}</h5></td>
-                <td><h5>B: {{bGallons}}</h5></td>
-                <td><h5>C: {{cGallons}}</h5></td>
-                <td><h5>total: {{totalGallons}}</h5></td>
-            </tr>
-            <tr>
-                <td><h5>A: {{aFrac}}</h5></td>
-                <td><h5>B: {{bFrac}}</h5></td>
-                <td><h5>C: {{cFrac}}</h5></td>
-                <td><h5>total: {{totalFrac}}</h5></td>
-            </tr>
-        </table>-->
+        <input type="number" ng-model="aFrac" style="display: none">
+        <input type="number" ng-model="bFrac" style="display: none">
+        <input type="number" ng-model="cFrac" style="display: none">
+        <input type="number" ng-model="filledFrac" style="display: none">
 
-        <table>
-            <tr>
-                <td><input type="number" ng-model="addA"></td>
-                <td><div class="button" ng-click="ctrl.add('A')">Add A</div></td>
-            </tr>
-            <tr>
-                <td><input type="number" ng-model="addB"></td>
-                <td><div class="button" ng-click="ctrl.add('B')">Add B</div></td>
-            </tr>
-            <tr>
-                <td><input type="number" ng-model="addC"></td>
-                <td><div class="button" ng-click="ctrl.add('C')">Add C</div></td>
-            </tr>
-            <tr>
-                <td><input type="number" ng-model="remove"></td>
-                <td><div class="button" ng-click="ctrl.remove()">Remove</div></td>
-            </tr>
-
-        </table>
+        <input type="number" ng-model="aGallons" style="display: none">
+        <input type="number" ng-model="bGallons" style="display: none">
+        <input type="number" ng-model="cGallons" style="display: none">
+        <input type="number" ng-model="totalGallons" style="display: none">
 
 
-        <table>
-            <tr ng-repeat="entry in entries">
-                <td>{{entry.currentDate | date:'yyyy-MM-dd h:mm:ss a'}}</td>
-                <td>{{entry.action}}</td>
-                <td>{{entry.amount}}</td>
-                <td>{{entry.fracA}}</td>
-                <td>{{entry.fracB}}</td>
-                <td>{{entry.fracC}}</td>
-                <td>{{entry.galA}}</td>
-                <td>{{entry.galB}}</td>
-                <td>{{entry.galC}}</td>
-                <td>{{entry.galTotal}}</td>
-            </tr>
-        </table>
+        <div style="float: left">
+            <table>
+                <tr>
+                    <td><input type="number" ng-model="addA"></td>
+                    <td><div class="button" ng-click="ctrl.add('A')" style="background-color: steelblue">Add A</div></td>
+                </tr>
+                <tr>
+                    <td><input type="number" ng-model="addB"></td>
+                    <td><div class="button" ng-click="ctrl.add('B')" style="background-color: red">Add B</div></td>
+                </tr>
+                <tr>
+                    <td><input type="number" ng-model="addC"></td>
+                    <td><div class="button" ng-click="ctrl.add('C')" style="background-color: black">Add C</div></td>
+                </tr>
+                <tr>
+                    <td><input type="number" ng-model="remove"></td>
+                    <td><div class="button" ng-click="ctrl.remove()" style="background-color: gray">Remove</div></td>
+                </tr>
+
+            </table>
+        </div>
+
+        <div style="width: 250px; height: 250px; float: left">
+            <pie-chart data="data" options="options"></pie-chart>
+        </div>
+        <div style="width: 250px; height: 250px; float: left">
+            <pie-chart data="gauge_data" options="gauge_options"></pie-chart>
+        </div>
+        <br clear="both">
+
+
+        <div>
+            <table id="tankdata">
+                <tr ng-repeat="entry in entries">
+                    <td style="color: gray">     {{entry.currentDate | date:'yyyy-MM-dd h:mm:ss a'}}</td>
+                    <td style="color: gray">     {{entry.action}}</td>
+                    <td style="color: gray">     {{entry.amount}}</td>
+                    <td style="color: steelblue">{{entry.fracA}} </td>
+                    <td style="color: red">      {{entry.fracB}} </td>
+                    <td style="color: black">    {{entry.fracC}} </td>
+                    <td style="color: steelblue">{{entry.galA}}  </td>
+                    <td style="color: red">      {{entry.galB}}  </td>
+                    <td style="color: black">    {{entry.galC}}  </td>
+                    <td style="color: gray">     {{entry.galTotal}}</td>
+                </tr>
+            </table>
+        </div>
+
+
+
+
 
 
     </div>
 </div>
 
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.min.js"></script>
-<script type="text/javascript" src="main.js"></script>
+<script type="text/javascript">
+
+</script>
+
+<style>
+    .button {
+        border: none;
+    }
+</style>
+
 </body>
 </html>
